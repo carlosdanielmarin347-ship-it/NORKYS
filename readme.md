@@ -72,10 +72,10 @@ El sistema cuenta con 4 tablas principales:
 
   
 ### Diagrama Entidad-Relacion (DER)
-
+![Diagrama Entidad Relacion](imagen.png)
  
 ### Modelo Relacional (MR)
-
+![Modelo Relacional](imagen2.png)
 
 
 
