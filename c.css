@@ -86,6 +86,9 @@ main {
 @media(min-width: 768px) {
   .sidebar {
     left: 0;
+    width: 100px;
+    ;
+
   }
 
   .overlay {
@@ -99,4 +102,16 @@ main {
   .topbar {
     display: none;
   }
+  /* desaperecemos el nombre (empleados,reportes) */
+   ul li a span {
+    display: none;
+  }
 }
+
+
+
+
+
+
+
+
