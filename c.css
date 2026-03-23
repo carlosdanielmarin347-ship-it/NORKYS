@@ -161,6 +161,113 @@ main {
 }
 
 
+/* SUBMENU OCULTO */
+.submenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding-left: 15px;
+}
+
+/* CUANDO SE ABRE */
+.menu-item.active .submenu {
+  max-height: 200px;
+}
+
+/* FLECHITA */
+.arrow {
+  margin-left: auto;
+  transition: transform 0.3s ease;
+}
+
+/* ROTACIÓN 🔥 */
+.menu-item.active .arrow {
+  transform: rotate(180deg);
+}
+
+/* ALINEACIÓN */
+.menu-item a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* SUBMENU ESTILO */
+.submenu a {
+  display: block;
+  padding: 5px 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/*  */
+#tabla-empleados {
+  margin-top: 20px;
+}
+
+/* tablas */
+/* CONTENEDOR */
+.tabla-container {
+  background: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* TÍTULO */
+.tabla-container h2 {
+  margin-bottom: 15px;
+}
+
+/* TABLA */
+.tabla-asistencia {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* HEADER */
+.tabla-asistencia thead {
+  background: #d9d9de;
+}
+
+.tabla-asistencia th {
+  padding: 15px;
+  text-align: left;
+  font-weight: bold;
+}
+
+/* FILAS */
+.tabla-asistencia td {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* ESTADOS */
+.estado {
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* VERDE */
+.asistio {
+  background: #b9e5c9;
+  color: #1e7e34;
+}
+
+/* NARANJA */
+.tarde {
+  background: #f8c291;
+  color: #a84300;
+}
+
+/* HOVER (opcional pro) */
+.tabla-asistencia tbody tr:hover {
+  background: #f9f9f9;
+}
 /* ============================= */
 /* TABLET (768px en adelante) */
 /* ============================= */
@@ -214,6 +321,65 @@ main {
 }
 
 
+/* resposive de las tablas */
+/* ===================== */
+/* 📱 MODO CELULAR */
+/* ===================== */
+@media (max-width: 768px) {
+
+  /* quitamos header */
+  .tabla-asistencia thead {
+    display: none;
+  }
+
+  /* tabla como bloque */
+  .tabla-asistencia,
+  .tabla-asistencia tbody,
+  .tabla-asistencia tr,
+  .tabla-asistencia td {
+    display: block;
+    width: 100%;
+  }
+
+  /* cada fila es una card */
+  .tabla-asistencia tr {
+    background: #dcdcdc;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
+  }
+
+  /* celdas */
+  .tabla-asistencia td {
+    border: none;
+    padding: 5px 0;
+    font-size: 16px;
+  }
+
+  /* ocultamos datos que no quieres mostrar */
+  .tabla-asistencia td:nth-child(2), /* fecha */
+  .tabla-asistencia td:nth-child(3) { /* turno */
+    display: none;
+  }
+
+  /* nombre grande */
+  .tabla-asistencia td:nth-child(1) {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  /* juntamos entrada y salida */
+  .tabla-asistencia td:nth-child(4)::after {
+    content: " - " attr(data-salida);
+  }
+
+  /* estado alineado a la derecha */
+  .tabla-asistencia td:nth-child(6) {
+    margin-top: 10px;
+  }
+
+}
+
 /* ============================= */
 /* MOBILE (celulares) */
 /* ============================= */
@@ -225,7 +391,48 @@ main {
   }
 }
 
+/* formulario registrar empleado  */
+.form-empleado {
+  max-width: 500px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
 
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+/* BOTÓN */
+.btn-guardar {
+  margin-top: 10px;
+  padding: 12px;
+  background: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-guardar:hover {
+  background: #2980b9;
+}
 /* ============================= */
 /* DESKTOP (pantallas grandes) */
 /* ============================= */
