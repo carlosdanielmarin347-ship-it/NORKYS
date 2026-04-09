@@ -224,3 +224,67 @@ INSERT INTO ASISTENCIA (id_empleado, fecha, hora_entrada, hora_salida, estado) V
 ```
 
 ---
+
+## Como correr el proyecto
+ 
+### Requisitos previos
+- Tener instalado IntelliJ IDEA
+- Tener instalado XAMPP (para MySQL)
+- Tener instalado MySQL Workbench
+- Tener instalado JDK 21 o superior
+ 
+### Backend
+1. Abrir la carpeta `backend/` en IntelliJ IDEA
+2. Configurar `application.properties` con los datos de MySQL
+3. Iniciar XAMPP y activar MySQL
+4. Ejecutar `NorkysApplication.java`
+5. El backend corre en: `http://localhost:8080`
+ 
+### Frontend
+1. Abrir la carpeta `frontend/` en VsCode
+2. Abrir `index.html` con Live Server
+3. El frontend se comunica con el backend via fetch()
+ 
+> El frontend y el backend corren por separado.
+> El backend debe estar iniciado antes de abrir el frontend.
+ ### Configuracion de base de datos
+```
+spring.application.name=NORKYS
+
+#CONECCION A LA BASE DE DATOS
+
+#La ruta de donde esta mi base de datos
+spring.datasource.url=jdbc:mysql://localhost:3306/NORKYS 
+#Usuario
+spring.datasource.username=root
+#contrasena xd
+spring.datasource.password=
+#esto es el puente en el que se conecta Java con Mysql (Traductor entre java y mysql)
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# JPA / HIBERNATE
+
+#Esto significa “Si cambio mis clases, actualiza la base de datos automáticamente”
+spring.jpa.hibernate.ddl-auto=update
+#Muestra en consola las consultas SQL
+spring.jpa.show-sql=true
+#Espesificamos que estamos usando Myslq 8
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+#Puerto del servidor
+server.port=8080
+
+#URL de las APIS
+app.api.url=http://localhost:8080/
+# Dar formato bonito a las consultas para que sea más legible
+spring.jpa.properties.hibernate.format_sql=true
+
+# (Opcional) Mostrar los parámetros que se usan en las consultas
+spring.jpa.properties.hibernate.use_sql_comments=true
+spring.web.resources.cache.period=0
+spring.web.resources.chain.cache=false
+```
+ 
+---
+
+
+```
