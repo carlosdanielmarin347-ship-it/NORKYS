@@ -1,3 +1,8 @@
+## TRELLO
+Más info en [mi tablero de trello](https://trello.com/invite/b/69a1f85487e1c1e7b86cbfa5/ATTIc4af615229017a78ebfd92a03ed9a9e018678908/norkys)
+![TRELLO]()
+
+
 # Sistema de Control de registros de Empleados y Asistencias 
 
 ## Descripcion del negocio
