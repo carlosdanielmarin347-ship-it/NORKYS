@@ -78,7 +78,9 @@ ProyectoNORKYS/
 ```
 
 ### DIAGRAMA DE FIGMA UI/UX
+![Diseno UX](recursos/diseno_UX.png)
 
+![Diseno UX](recursos/diseno_UI.png)
 
 ## Base de datos
  
