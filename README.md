@@ -63,7 +63,7 @@ Solucion tecnologica: Desarrollar un sistema web utilizando Java Spring Boot y M
 - Draw.io (diagramas)
 
 
-##Estructura del proyecto
+## Estructura del proyecto
 
 ```
 ProyectoNORKYS/
@@ -76,6 +76,8 @@ ProyectoNORKYS/
 │   ├── js/
 │   └── index.html
 ```
+
+### DIAGRAMA DE FIGMA UI/UX
 
 
 ## Base de datos
