@@ -451,3 +451,83 @@ document.addEventListener('DOMContentLoaded', function() {
         cargarAsistencias(fechaSeleccionada);
     });
 });
+
+
+
+
+// Función para cargar el dashboard
+async function cargarDashboard() {
+    try {
+        // Llamo a mi API
+        const response = await fetch('http://localhost:8080/api/dashboard/estadisticas');
+        const data = await response.json();
+        
+        console.log('Datos recibidos:', data); // Para depuración
+        
+        //CARD 1: Total de Empleados (SIEMPRE se muestra)
+        document.getElementById('totalEmpleados').textContent = data.totalEmpleados;
+        
+        // Verificamos si ya se tomó asistencia hoy
+        if (data.asistenciaTomadaHoy) {
+            //CARD 2: Asistieron Hoy
+            document.getElementById('asistieron').textContent = data.asistieron;
+            
+            //CARD 3: Faltas
+            document.getElementById('faltaron').textContent = data.faltaron;
+            
+            //CARD 4: Tardanza
+            document.getElementById('llegaronTarde').textContent = data.llegaronTarde;
+            
+            // Opcional: cambiar estilos para mostrar que hay datos
+            document.querySelectorAll('.card-verde, .card-rojo, .card-morado').forEach(card => {
+                card.style.opacity = '1';
+            });
+            
+        } else {
+            // Si NO se ha tomado asistencia, mostrar 0 o mensaje
+            document.getElementById('asistieron').textContent = '?';
+            document.getElementById('faltaron').textContent = '?';
+            document.getElementById('llegaronTarde').textContent = '?';
+            
+            //mostrar tooltip o mensaje
+            console.log(data.mensaje);
+            
+            //Se puede mostrar un mensaje flotante
+            mostrarMensaje(data.mensaje);
+        }
+        
+    } catch (error) {
+        console.error('Error al cargar dashboard:', error);
+        // Mostrar error en los cards
+        document.getElementById('totalEmpleados').textContent = 'Error';
+        document.getElementById('asistieron').textContent = 'Error';
+        document.getElementById('faltaron').textContent = 'Error';
+        document.getElementById('llegaronTarde').textContent = 'Error';
+    }
+}
+
+// Función opcional para mostrar mensaje
+function mostrarMensaje(mensaje) {
+    // Crear un toast o alerta suave
+    const toast = document.createElement('div');
+    toast.textContent = mensaje;
+    toast.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #ff9800;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        z-index: 1000;
+        animation: fadeInOut 3s ease;
+    `;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+}
+
+// Cargar dashboard cuando la página esté lista
+document.addEventListener('DOMContentLoaded', cargarDashboard);
+
+//Actualizar cada 30 segundos
+setInterval(cargarDashboard, 30000);
