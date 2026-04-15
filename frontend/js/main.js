@@ -484,9 +484,9 @@ async function cargarDashboard() {
             
         } else {
             // Si NO se ha tomado asistencia, mostrar 0 o mensaje
-            document.getElementById('asistieron').textContent = '?';
-            document.getElementById('faltaron').textContent = '?';
-            document.getElementById('llegaronTarde').textContent = '?';
+            document.getElementById('asistieron').textContent = '0';
+            document.getElementById('faltaron').textContent = '0';
+            document.getElementById('llegaronTarde').textContent = '0';
             
             //mostrar tooltip o mensaje
             console.log(data.mensaje);
@@ -530,3 +530,83 @@ document.addEventListener('DOMContentLoaded', cargarDashboard);
 
 //Actualizar cada 30 segundos
 setInterval(cargarDashboard, 30000);
+
+
+//
+// FETCH para mostrar empleados con su asistencia de HOY
+async function cargarAsistenciaHoy() {
+    try {
+        const hoy = new Date().toISOString().split('T')[0]; // 2026-04-15
+        
+        // Traer todas las asistencias de hoy
+        const responseAsistencia = await fetch(`http://localhost:8080/api/asistencia/historial?fecha=${hoy}`);
+        const asistencias = await responseAsistencia.json();
+        
+        // Traer todos los empleados
+        const responseEmpleados = await fetch('http://localhost:8080/api/empleados');
+        const empleados = await responseEmpleados.json();
+        
+        const tbody = document.querySelector('#dashboard .tabla-asistencia tbody');
+        tbody.innerHTML = '';
+        
+        // Recorrer cada empleado
+        empleados.forEach(emp => {
+            // Buscar si este empleado tiene asistencia registrada HOY
+            const asistenciaHoy = asistencias.find(a => a.empleado.id === emp.id);
+            
+            // Determinar estado
+            let estadoTexto = 'Sin registrar';
+            let estadoClass = 'sin-registrar';
+            
+            if (asistenciaHoy) {
+                if (asistenciaHoy.estado === 'Asistio') {
+                    estadoTexto = 'Asistió';
+                    estadoClass = 'asistio';
+                } else if (asistenciaHoy.estado === 'Tardanza') {
+                    estadoTexto = 'Tardanza';
+                    estadoClass = 'tardanza';
+                } else if (asistenciaHoy.estado === 'Falta') {
+                    estadoTexto = 'Faltó';
+                    estadoClass = 'falto';
+                }
+            }
+            
+            const fila = `
+                <tr>
+                    <td>${emp.nombre} ${emp.apellido}</td>
+                    <td>${hoy}</td>
+                    <td>${emp.turno?.nombre || 'Sin turno'}</td>
+                    <td>${formatearHora(emp.turno?.horaInicio)}</td>
+                    <td>${formatearHora(emp.turno?.horaFin)}</td>
+                    <td><span class="estado ${estadoClass}">${estadoTexto}</span></td>
+                </tr>
+            `;
+            tbody.innerHTML += fila;
+        });
+        
+        // Actualizar cards
+        const totalAsistieron = asistencias.filter(a => a.estado === 'Asistio').length;
+        const totalTardanza = asistencias.filter(a => a.estado === 'Tardanza').length;
+        const totalFaltaron = asistencias.filter(a => a.estado === 'Falta').length;
+        
+        document.getElementById('totalEmpleados').textContent = empleados.length;
+        document.getElementById('asistieron').textContent = totalAsistieron;
+        document.getElementById('faltaron').textContent = totalFaltaron;
+        document.getElementById('llegaronTarde').textContent = totalTardanza;
+        
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+function formatearHora(hora) {
+    if (!hora) return '--:--';
+    const [h, m] = hora.split(':');
+    let horaNum = parseInt(h);
+    const periodo = horaNum >= 12 ? 'PM' : 'AM';
+    horaNum = horaNum % 12 || 12;
+    return `${horaNum}:${m} ${periodo}`;
+}
+
+// Ejecutar
+cargarAsistenciaHoy();

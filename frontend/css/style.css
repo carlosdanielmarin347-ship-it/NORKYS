@@ -481,13 +481,14 @@ main {
 }
 
 /* Estado: llegó tarde */
-.estado.tarde {
+.tardanza {
     background: #f8c291;  /* naranja clarito */
     color: #a84300;       /* naranja oscuro */
 }
 
 /* Estado: ausente */
-.estado.ausente {
+.falto {
+    background: #ffa3a3;
     color: #c0392b;       /* rojo */
 }
 
