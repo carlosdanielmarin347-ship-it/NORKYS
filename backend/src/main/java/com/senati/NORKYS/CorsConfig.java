@@ -16,7 +16,7 @@ public class CorsConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 //allowedOrigins → Solo permite peticiones desde localhost:5500
-                // (el puerto que usa Live Server de VS Code)
+                // (es el puerto que usa Live Server de VS Code)
                 .allowedOrigins("http://127.0.0.1:5500", "http://localhost:5500")
                 //allowedMethods → Permite usar los verbos más comunes (GET, POST, PUT, DELETE)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")

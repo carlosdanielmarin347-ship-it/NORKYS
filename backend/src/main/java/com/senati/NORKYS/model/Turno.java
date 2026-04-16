@@ -3,6 +3,9 @@ package com.senati.NORKYS.model;
 // Importamos las anotaciones de JPA para mapear esta clase a la base de datos
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 // Le decimos a Spring/JPA que esta clase representa una entidad en mi base de datos
 @Entity
 
@@ -23,6 +26,12 @@ public class Turno {
     // Definimos otra columna llamada 'nombre' que guardará el nombre del turno
     @Column(name = "nombre")
     private String nombre;
+
+    @Column(name = "hora_inicio")
+    private LocalTime horaInicio;
+
+    @Column(name = "hora_fin")
+    private LocalTime horaFin;
     //METODOS    GET (Acceder) SET (Modificar)
     // Getters y Setters
     // Permiten acceder y modificar los valores de los atributos desde otras clases
@@ -38,4 +47,20 @@ public class Turno {
 
     // Permite cambiar el nombre del turno
     public void setNombre(String nombre) { this.nombre = nombre; }
+
+    public LocalTime getHoraInicio() {
+        return horaInicio;
+    }
+
+    public void setHoraInicio(LocalTime horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public LocalTime getHoraFin() {
+        return horaFin;
+    }
+
+    public void setHoraFin(LocalTime horaFin) {
+        this.horaFin = horaFin;
+    }
 }

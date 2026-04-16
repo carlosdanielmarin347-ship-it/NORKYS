@@ -16,7 +16,8 @@ import java.time.LocalDate; // También necesitas esto para LocalDate.now(, que 
 import java.util.List; //Importamos la interfaz List ya que vamos a devolver una lista de empleados
 
 @RestController // Le decimos a Spring que esta clase es un controlador REST, manejará peticiones HTTP y devolvera JSON
-@RequestMapping("/api/empleados") // Definimos la ruta base de nuestra API: todas las rutas aquí empezarán con /api/empleados
+@RequestMapping("/api/empleados")// Definimos la ruta base de nuestra API: todas las rutas aquí empezarán con /api/empleados
+@CrossOrigin(origins = "*")
 public class EmpleadoController { // Definimos la clase pública que será nuestro controlador, aca empieza nuestro controlador
 
     @Autowired // Spring inyecta automáticamente la dependencia del servicio
@@ -100,10 +101,16 @@ public class EmpleadoController { // Definimos la clase pública que será nuest
         // Paso 1: Borrar TODAS las asistencias ligadas a ese empleado
         asistenciaRepository.deleteByEmpleadoId(id);
 
-        // Paso 2: Ahora sí, borrar al empleado gay
+        // Paso 2: Ahora sí PODEMOS borrar al empleado
         empleadoRepository.deleteById(id);
 
         return ResponseEntity.ok("Empleado y su historial eliminados");
+    }
+
+    // Agregamos este método para las estadisticas de los cards
+    @GetMapping("/con-turnos")
+    public List<Empleado> listarConTurnos() {
+        return empleadoService.listarEmpleadosConTurno();
     }
 
 

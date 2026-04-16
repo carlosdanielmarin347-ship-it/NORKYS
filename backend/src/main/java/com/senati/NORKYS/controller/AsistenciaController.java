@@ -3,6 +3,7 @@ package com.senati.NORKYS.controller;
 // IMPORTAMOS
 import com.senati.NORKYS.model.Asistencia;
 import com.senati.NORKYS.model.Empleado;
+import com.senati.NORKYS.repository.AsistenciaRepository;
 import com.senati.NORKYS.repository.EmpleadoRepository;
 import com.senati.NORKYS.service.AsistenciaService;
 
@@ -22,6 +23,9 @@ public class AsistenciaController {
 
     @Autowired
     private EmpleadoRepository empleadoRepository;
+
+    @Autowired
+    private AsistenciaRepository asistenciaRepository;
 
     //Cargamos otra vez los empleados
     @GetMapping("/empleados")
@@ -55,6 +59,12 @@ public class AsistenciaController {
         LocalDate fechaConsulta = LocalDate.parse(fecha);
         List<Asistencia> asistencias = asistenciaService.findByFecha(fechaConsulta);
         return ResponseEntity.ok(asistencias);
+    }
+
+    @GetMapping("/fecha")
+    public List<Asistencia> getAsistenciasPorFecha(@RequestParam String fecha) {
+        LocalDate fechaConsulta = LocalDate.parse(fecha);
+        return asistenciaRepository.findByFecha(fechaConsulta);
     }
 }
 

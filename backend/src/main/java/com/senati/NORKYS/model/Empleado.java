@@ -37,11 +37,13 @@ public class Empleado {
     @JoinColumn (name = "id_cargo") //Apunta a la culumna de la DB
     private Cargo cargo;
 
+    private boolean estado;
 
     //Referencia a turno
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "id_turno") //Apunta a la culumna de la DB
     private Turno turno;
+
 
 
     //GETTERS Y SETTERS
