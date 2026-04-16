@@ -101,13 +101,13 @@ public class EmpleadoController { // Definimos la clase pública que será nuest
         // Paso 1: Borrar TODAS las asistencias ligadas a ese empleado
         asistenciaRepository.deleteByEmpleadoId(id);
 
-        // Paso 2: Ahora sí, borrar al empleado
+        // Paso 2: Ahora sí PODEMOS borrar al empleado
         empleadoRepository.deleteById(id);
 
         return ResponseEntity.ok("Empleado y su historial eliminados");
     }
 
-    // Agrega este método junto a los que ya tienes
+    // Agregamos este método para las estadisticas de los cards
     @GetMapping("/con-turnos")
     public List<Empleado> listarConTurnos() {
         return empleadoService.listarEmpleadosConTurno();
