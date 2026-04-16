@@ -10,7 +10,7 @@ import java.util.List;
 @Repository // Indica que esta interfaz es un componente de persistencia.
 public interface EmpleadoRepository extends JpaRepository<Empleado, Long> { //Aca creamos una interfas no una clase
 
-    // Agrega este método para traer empleados con sus turnos cargados
+    // Agregamos este método para traer empleados con sus turnos cargados
     @Query("SELECT e FROM Empleado e LEFT JOIN FETCH e.turno")
     List<Empleado> findAllWithTurno();
 
